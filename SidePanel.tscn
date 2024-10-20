@@ -1,105 +1,75 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://cbyfl5nos105f"]
 
-[ext_resource path="res://main_panel.tres" type="StyleBox" id=1]
-[ext_resource path="res://fonts/plex_mono_24.tres" type="FontFile" id=2]
-[ext_resource path="res://fonts/plex_mono_16.tres" type="FontFile" id=3]
-[ext_resource path="res://SidePanel.gd" type="Script" id=4]
+[ext_resource type="StyleBox" path="res://main_panel.tres" id="1"]
+[ext_resource type="FontFile" path="res://fonts/plex_mono_24.tres" id="2"]
+[ext_resource type="FontFile" path="res://fonts/plex_mono_16.tres" id="3"]
+[ext_resource type="Script" path="res://SidePanel.gd" id="4"]
 
 [node name="SidePanel" type="PanelContainer"]
+custom_minimum_size = Vector2(320, 0)
 offset_left = 856.0
 offset_right = 984.0
 offset_bottom = 560.0
-custom_minimum_size = Vector2( 320, 0 )
-theme_override_styles/panel = ExtResource( 1 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_styles/panel = ExtResource("1")
+script = ExtResource("4")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 320.0
-offset_bottom = 560.0
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_top = 5
+layout_mode = 2
 theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="Rows" type="VBoxContainer" parent="MarginContainer"]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 315.0
-offset_bottom = 555.0
+layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="TitleSection" type="VBoxContainer" parent="MarginContainer/Rows"]
-offset_right = 310.0
-offset_bottom = 54.0
+layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="InfoLabel" type="Label" parent="MarginContainer/Rows/TitleSection"]
-offset_right = 310.0
-offset_bottom = 22.0
-theme_override_colors/font_color = Color( 0.631373, 0.631373, 0.631373, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0.631373, 0.631373, 0.631373, 1)
+theme_override_fonts/font = ExtResource("3")
 text = "You are in..."
 
 [node name="RoomNameLabel" type="Label" parent="MarginContainer/Rows/TitleSection"]
-offset_top = 22.0
-offset_right = 310.0
-offset_bottom = 54.0
-theme_override_colors/font_color = Color( 0.980392, 1, 0.580392, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0.980392, 1, 0.580392, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "A Room"
-autowrap = true
 
 [node name="RoomDescriptionLabel" type="Label" parent="MarginContainer/Rows"]
-offset_top = 74.0
-offset_right = 310.0
-offset_bottom = 121.0
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "This will be where the room's description goes."
-autowrap = true
+autowrap_mode = 3
 
 [node name="ListArea" type="VBoxContainer" parent="MarginContainer/Rows"]
-offset_top = 141.0
-offset_right = 310.0
-offset_bottom = 483.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ExitLabel" type="RichTextLabel" parent="MarginContainer/Rows/ListArea"]
-offset_right = 310.0
-offset_bottom = 23.0
-theme_override_fonts/normal_font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3")
 bbcode_enabled = true
 text = "Exits: Option"
-text = "Exits: Option"
-fit_content_height = true
 
 [node name="NpcLabel" type="RichTextLabel" parent="MarginContainer/Rows/ListArea"]
-offset_top = 27.0
-offset_right = 310.0
-offset_bottom = 50.0
-theme_override_fonts/normal_font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3")
 bbcode_enabled = true
 text = "Exits: Option"
-text = "Exits: Option"
-fit_content_height = true
 
 [node name="ItemLabel" type="RichTextLabel" parent="MarginContainer/Rows/ListArea"]
-offset_top = 54.0
-offset_right = 310.0
-offset_bottom = 77.0
-theme_override_fonts/normal_font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3")
 bbcode_enabled = true
 text = "Exits: Option"
-text = "Exits: Option"
-fit_content_height = true
 
 [node name="HelpLabel" type="Label" parent="MarginContainer/Rows"]
-offset_top = 503.0
-offset_right = 310.0
-offset_bottom = 550.0
-theme_override_colors/font_color = Color( 1, 0.827451, 0.580392, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.827451, 0.580392, 1)
+theme_override_fonts/font = ExtResource("3")
 text = "You can type 'help' to see all possible commands."
-autowrap = true

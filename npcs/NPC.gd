@@ -4,8 +4,8 @@ class_name NPC
 
 @export var npc_name: String = "NPC Name"
 
-@export var initial_dialog # (String, MULTILINE)
-@export var post_quest_dialog # (String, MULTILINE)
+@export var initial_dialog : String # (String, MULTILINE)
+@export var post_quest_dialog: String # (String, MULTILINE)
 
 @export var quest_item: Resource
 

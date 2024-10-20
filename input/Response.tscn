@@ -1,16 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://njmmrati48ev"]
 
-[ext_resource path="res://fonts/plex_mono_28.tres" type="FontFile" id=1]
+[ext_resource type="FontFile" path="res://fonts/plex_mono_28.tres" id="1"]
 
 [node name="Response" type="RichTextLabel"]
 offset_top = 32.0
 offset_right = 984.0
 offset_bottom = 69.0
-theme_override_fonts/normal_font = ExtResource( 1 )
+theme_override_fonts/normal_font = ExtResource("1")
 bbcode_enabled = true
-text = "Hello [color=green]world[/color] how [color=red]are you doing?"
 text = "Hello world how are you doing?"
-fit_content_height = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+fit_content = true
+scroll_active = false

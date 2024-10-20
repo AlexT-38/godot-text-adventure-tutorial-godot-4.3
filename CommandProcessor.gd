@@ -54,7 +54,7 @@ func go(second_word: String) -> String:
 			return "The way " + Types.wrap_location_text(second_word) + " is currently " + Types.wrap_system_text("locked!")
 
 		var change_response = change_room(exit.get_other_room(current_room))
-		return PackedStringArray(["You go " + Types.wrap_location_text(second_word) + ".", change_response]"\n".join())
+		return "\n".join(PackedStringArray(["You go " + Types.wrap_location_text(second_word) + ".", change_response]))
 	else:
 		return "This room has no " + Types.wrap_location_text(second_word) + " exit."
 
@@ -128,9 +128,12 @@ func give(second_word: String) -> String:
 		return Types.wrap_system_text("Give what?")
 
 	var has_item := false
+	var item_to_give :Item
 	for item in player.inventory:
 		if second_word.to_lower() == item.item_name.to_lower():
 			has_item = true
+			item_to_give = item
+			break
 
 	if not has_item:
 		return "You don't have a " + Types.wrap_item_text(second_word) + "."
@@ -146,14 +149,14 @@ func give(second_word: String) -> String:
 				else:
 					printerr("Warning - tried to have a quest reward type that is not implemented.")
 
-			player.drop_item(second_word)
+			player.drop_item(item_to_give)
 			return "You give the " + Types.wrap_item_text(second_word) + " to the " +  Types.wrap_npc_text(npc.npc_name) + "."
 
 	return "Nobody here wants a" + Types.wrap_item_text(second_word) + "."
 
 
 func help() -> String:
-	return PackedStringArray([
+	return "\n".join( PackedStringArray([
 		"You can use these commands: ",
 		" go " + Types.wrap_location_text("[location]"),
 		" take " + Types.wrap_item_text("[item]"),
@@ -163,7 +166,7 @@ func help() -> String:
 		" give " + Types.wrap_item_text("[item]"),
 		" inventory",
 		" help"
-	]"\n".join())
+	]  ))
 
 
 func change_room(new_room: GameRoom) -> String:

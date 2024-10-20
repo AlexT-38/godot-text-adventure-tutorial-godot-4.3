@@ -1,6 +1,7 @@
 @tool
-extends PanelContainer
 class_name GameRoom
+extends PanelContainer
+
 
 
 @export var room_name: String = "Room Name": set = set_room_name
@@ -75,7 +76,7 @@ func get_item_description() -> String:
 
 
 func get_exit_description() -> String:
-	return "Exits: " + Types.wrap_location_text(PackedStringArray(exits." ".join(keys())))
+	return "Exits: " + Types.wrap_location_text(" ".join(exits.keys()))
 
 
 func connect_exit_unlocked(direction: String, room, room_2_override_name = "null"):

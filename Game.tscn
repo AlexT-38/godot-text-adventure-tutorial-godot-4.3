@@ -1,43 +1,45 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=14 format=3 uid="uid://blcu3588yqsnd"]
 
-[ext_resource path="res://input/Input.gd" type="Script" id=1]
-[ext_resource path="res://fonts/plex_mono_28.tres" type="FontFile" id=2]
-[ext_resource path="res://Game.gd" type="Script" id=3]
-[ext_resource path="res://CommandProcessor.gd" type="Script" id=4]
-[ext_resource path="res://rooms/GameRoom.tscn" type="PackedScene" id=5]
-[ext_resource path="res://rooms/RoomManager.gd" type="Script" id=6]
-[ext_resource path="res://Player.gd" type="Script" id=7]
-[ext_resource path="res://GameInfo.tscn" type="PackedScene" id=8]
-[ext_resource path="res://SidePanel.tscn" type="PackedScene" id=9]
+[ext_resource type="Script" path="res://input/Input.gd" id="1"]
+[ext_resource type="FontFile" path="res://fonts/plex_mono_28.tres" id="2"]
+[ext_resource type="Script" path="res://Game.gd" id="3"]
+[ext_resource type="Script" path="res://CommandProcessor.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://lp4fs2abfa5i" path="res://rooms/GameRoom.tscn" id="5"]
+[ext_resource type="Script" path="res://rooms/RoomManager.gd" id="6"]
+[ext_resource type="Script" path="res://Player.gd" id="7"]
+[ext_resource type="PackedScene" uid="uid://f45lvihtjdwt" path="res://GameInfo.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://cbyfl5nos105f" path="res://SidePanel.tscn" id="9"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.286275, 0.286275, 0.286275, 1 )
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.286275, 0.286275, 0.286275, 1)
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id="4"]
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id="5"]
 
 [node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3")
 
 [node name="Player" type="Node" parent="."]
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [node name="CommandProcessor" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="RoomManager" type="Node" parent="."]
-script = ExtResource( 6 )
+script = ExtResource("6")
 
-[node name="StartingShed" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="StartingShed" parent="RoomManager" instance=ExtResource("5")]
+anchors_preset = -1
 anchor_top = 0.000771586
 anchor_bottom = 0.000771586
 offset_left = 1393.53
@@ -47,7 +49,7 @@ offset_bottom = -198.655
 room_name = "a shed"
 room_description = "a storage shed behind a large building that appears to be an inn. There is a door to the inn and some storage crates to the west."
 
-[node name="BackOfInn" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="BackOfInn" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 1087.14
 offset_top = -419.617
 offset_right = 1367.14
@@ -55,7 +57,7 @@ offset_bottom = -147.617
 room_name = "the back of the inn"
 room_description = "the back door of the inn, surrounded by crates and other storage that the innkeeper must be keeping outside. There is a door to the north that leads into the inn, and a path that goes to the village square."
 
-[node name="VillageSquare" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="VillageSquare" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 389.533
 offset_top = -1082.66
 offset_right = 655.533
@@ -63,7 +65,7 @@ offset_bottom = -879.655
 room_name = "the village square"
 room_description = "the main square of the village. To the south is the shed and back of the inn. The main inn door is to the east, and there is a field to the west."
 
-[node name="InnDoor" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="InnDoor" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 729.878
 offset_top = -1080.35
 offset_right = 995.878
@@ -71,7 +73,8 @@ offset_bottom = -880.355
 room_name = "the inn door"
 room_description = "the main entrance to the inn. A sign outside says \"The Swooping Heron.\""
 
-[node name="InnInside" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="InnInside" parent="RoomManager" instance=ExtResource("5")]
+anchors_preset = -1
 anchor_left = -0.00045228
 anchor_right = -0.00045228
 anchor_bottom = 0.166667
@@ -82,7 +85,7 @@ offset_bottom = -886.0
 room_name = "the inn"
 room_description = "the main area inside the inn. There are a few nondescript villagers drinking at tables around the room, but it isn't busy at the moment. The innkeeper is standing behind the bar, waiting to serve customers. There is a door to the kitchen to the south, and a door back to the village square to the west."
 
-[node name="InnKitchen" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="InnKitchen" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 1092.0
 offset_top = -702.0
 offset_right = 1414.0
@@ -90,7 +93,7 @@ offset_bottom = -455.0
 room_name = "the inn's kitchen"
 room_description = "the kitchen of the inn. The cook isn't anywhere to be found - the room is empty, but a stew is cooking over the hearth. There is a door on the south wall that seems to go outside, and a door to the north back to the inn proper."
 
-[node name="Gate" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="Gate" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 391.075
 offset_top = -1348.32
 offset_right = 657.075
@@ -98,7 +101,7 @@ offset_bottom = -1145.32
 room_name = "the town gate"
 room_description = "the town gate. It leads out to the forest to the north.. A guard stands nearby watching everyone who comes by. The village is back toward the south."
 
-[node name="Field" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="Field" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 87.5334
 offset_top = -1080.66
 offset_right = 337.533
@@ -106,7 +109,7 @@ offset_bottom = -877.655
 room_name = "a field"
 room_description = "a field of grass and flowers next to the village. The village is back to the east."
 
-[node name="Forest" parent="RoomManager" instance=ExtResource( 5 )]
+[node name="Forest" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 403.679
 offset_top = -1592.38
 offset_right = 669.679
@@ -115,68 +118,54 @@ room_name = "the forest"
 room_description = "the forest outside of the town. Congratulations! You've made it out of the town."
 
 [node name="Background" type="PanelContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme_override_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_styles/panel = SubResource("1")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background"]
-offset_right = 1024.0
-offset_bottom = 600.0
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_top = 20
+layout_mode = 2
 theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="Columns" type="HBoxContainer" parent="Background/MarginContainer"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 1004.0
-offset_bottom = 580.0
+layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="Rows" type="VBoxContainer" parent="Background/MarginContainer/Columns"]
-offset_right = 644.0
-offset_bottom = 560.0
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
-[node name="GameInfo" parent="Background/MarginContainer/Columns/Rows" instance=ExtResource( 8 )]
-offset_right = 644.0
+[node name="GameInfo" parent="Background/MarginContainer/Columns/Rows" instance=ExtResource("8")]
+layout_mode = 2
 
 [node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/Columns/Rows"]
-offset_top = 500.0
-offset_right = 644.0
-offset_bottom = 560.0
-custom_minimum_size = Vector2( 0, 60 )
-theme_override_styles/panel = SubResource( 3 )
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/Columns/Rows/InputArea"]
-offset_right = 644.0
-offset_bottom = 60.0
+layout_mode = 2
 
 [node name="Caret" type="Label" parent="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer"]
-offset_top = 11.0
-offset_right = 51.0
-offset_bottom = 48.0
-theme_override_fonts/font = ExtResource( 2 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
 text = " > "
 
 [node name="Input" type="LineEdit" parent="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer"]
-offset_left = 55.0
-offset_right = 644.0
-offset_bottom = 60.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource( 2 )
-theme_override_styles/focus = SubResource( 4 )
-theme_override_styles/normal = SubResource( 5 )
+theme_override_fonts/font = ExtResource("2")
+theme_override_styles/focus = SubResource("4")
+theme_override_styles/normal = SubResource("5")
 max_length = 48
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="SidePanel" parent="Background/MarginContainer/Columns" instance=ExtResource( 9 )]
-offset_left = 664.0
+[node name="SidePanel" parent="Background/MarginContainer/Columns" instance=ExtResource("9")]
+layout_mode = 2
 
 [connection signal="text_submitted" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="." method="_on_Input_text_entered"]
 [connection signal="text_submitted" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" method="_on_Input_text_entered"]
