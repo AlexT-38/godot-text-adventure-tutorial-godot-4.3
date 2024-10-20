@@ -2,12 +2,12 @@ extends Resource
 class_name NPC
 
 
-export (String) var npc_name = "NPC Name"
+@export var npc_name: String = "NPC Name"
 
-export (String, MULTILINE) var initial_dialog
-export (String, MULTILINE) var post_quest_dialog
+@export var initial_dialog # (String, MULTILINE)
+@export var post_quest_dialog # (String, MULTILINE)
 
-export (Resource) var quest_item
+@export var quest_item: Resource
 
 var has_received_quest_item := false
 var quest_reward = null

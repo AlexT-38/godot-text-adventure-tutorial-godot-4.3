@@ -1,10 +1,10 @@
-tool
+@tool
 extends PanelContainer
 class_name GameRoom
 
 
-export (String) var room_name = "Room Name" setget set_room_name
-export (String, MULTILINE) var room_description = "This is the description of the room." setget set_room_description
+@export var room_name: String = "Room Name": set = set_room_name
+@export var room_description = "This is the description of the room.": set = set_room_description
 
 var exits: Dictionary = {}
 var npcs: Array = []
@@ -34,7 +34,7 @@ func remove_item(item: Item):
 
 
 func get_full_description() -> String:
-	var full_description = PoolStringArray([get_room_description()])
+	var full_description = PackedStringArray([get_room_description()])
 
 	var npc_description = get_npc_description()
 	if npc_description != "":
@@ -46,7 +46,7 @@ func get_full_description() -> String:
 
 	full_description.append(get_exit_description())
 
-	var full_description_string = full_description.join("\n")
+	var full_description_string = "\n".join(full_description)
 	return full_description_string
 
 
@@ -75,7 +75,7 @@ func get_item_description() -> String:
 
 
 func get_exit_description() -> String:
-	return "Exits: " + Types.wrap_location_text(PoolStringArray(exits.keys()).join(" "))
+	return "Exits: " + Types.wrap_location_text(PackedStringArray(exits." ".join(keys())))
 
 
 func connect_exit_unlocked(direction: String, room, room_2_override_name = "null"):

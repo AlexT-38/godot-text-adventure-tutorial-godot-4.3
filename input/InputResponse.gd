@@ -1,9 +1,9 @@
 extends MarginContainer
 
 
-onready var zebra = $Zebra
-onready var input_label = $Rows/InputHistory
-onready var response_label = $Rows/Response
+@onready var zebra = $Zebra
+@onready var input_label = $Rows/InputHistory
+@onready var response_label = $Rows/Response
 
 
 func set_text(response: String, input: String = ""):
@@ -12,4 +12,4 @@ func set_text(response: String, input: String = ""):
 	else:
 		input_label.text = " > " + input
 
-	response_label.bbcode_text = response
+	response_label.text = response

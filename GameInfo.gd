@@ -3,30 +3,30 @@ extends PanelContainer
 
 const INPUT_RESPONSE = preload("res://input/InputResponse.tscn")
 
-export (int) var max_lines_remembered := 30
+@export var max_lines_remembered := 30
 
 var max_scroll_length := 0
 var should_zebra := false
 
-onready var scroll = $Scroll
-onready var scrollbar = scroll.get_v_scrollbar()
-onready var history_rows = $Scroll/HistoryRows
+@onready var scroll = $Scroll
+@onready var scrollbar = scroll.get_v_scroll_bar()
+@onready var history_rows = $Scroll/HistoryRows
 
 
 func _ready() -> void:
-	scrollbar.connect("changed", self, "_handle_scrollbar_changed")
+	scrollbar.connect("changed", Callable(self, "_handle_scrollbar_changed"))
 	max_scroll_length = scrollbar.max_value
 
 
 ##### PUBLIC #####
 func create_response(response_text: String):
-	var response = INPUT_RESPONSE.instance()
+	var response = INPUT_RESPONSE.instantiate()
 	_add_response_to_game(response)
 	response.set_text(response_text)
 
 
 func create_response_with_input(response_text: String, input_text: String):
-	var input_response = INPUT_RESPONSE.instance()
+	var input_response = INPUT_RESPONSE.instantiate()
 	_add_response_to_game(input_response)
 	input_response.set_text(response_text, input_text)
 

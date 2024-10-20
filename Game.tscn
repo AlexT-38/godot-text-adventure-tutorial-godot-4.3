@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://input/Input.gd" type="Script" id=1]
-[ext_resource path="res://fonts/plex_mono_28.tres" type="DynamicFont" id=2]
+[ext_resource path="res://fonts/plex_mono_28.tres" type="FontFile" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
 [ext_resource path="res://CommandProcessor.gd" type="Script" id=4]
 [ext_resource path="res://rooms/GameRoom.tscn" type="PackedScene" id=5]
@@ -40,34 +40,34 @@ script = ExtResource( 6 )
 [node name="StartingShed" parent="RoomManager" instance=ExtResource( 5 )]
 anchor_top = 0.000771586
 anchor_bottom = 0.000771586
-margin_left = 1393.53
-margin_top = -401.655
-margin_right = 1643.53
-margin_bottom = -198.655
+offset_left = 1393.53
+offset_top = -401.655
+offset_right = 1643.53
+offset_bottom = -198.655
 room_name = "a shed"
 room_description = "a storage shed behind a large building that appears to be an inn. There is a door to the inn and some storage crates to the west."
 
 [node name="BackOfInn" parent="RoomManager" instance=ExtResource( 5 )]
-margin_left = 1087.14
-margin_top = -419.617
-margin_right = 1367.14
-margin_bottom = -147.617
+offset_left = 1087.14
+offset_top = -419.617
+offset_right = 1367.14
+offset_bottom = -147.617
 room_name = "the back of the inn"
 room_description = "the back door of the inn, surrounded by crates and other storage that the innkeeper must be keeping outside. There is a door to the north that leads into the inn, and a path that goes to the village square."
 
 [node name="VillageSquare" parent="RoomManager" instance=ExtResource( 5 )]
-margin_left = 389.533
-margin_top = -1082.66
-margin_right = 655.533
-margin_bottom = -879.655
+offset_left = 389.533
+offset_top = -1082.66
+offset_right = 655.533
+offset_bottom = -879.655
 room_name = "the village square"
 room_description = "the main square of the village. To the south is the shed and back of the inn. The main inn door is to the east, and there is a field to the west."
 
 [node name="InnDoor" parent="RoomManager" instance=ExtResource( 5 )]
-margin_left = 729.878
-margin_top = -1080.35
-margin_right = 995.878
-margin_bottom = -880.355
+offset_left = 729.878
+offset_top = -1080.35
+offset_right = 995.878
+offset_bottom = -880.355
 room_name = "the inn door"
 room_description = "the main entrance to the inn. A sign outside says \"The Swooping Heron.\""
 
@@ -75,108 +75,108 @@ room_description = "the main entrance to the inn. A sign outside says \"The Swoo
 anchor_left = -0.00045228
 anchor_right = -0.00045228
 anchor_bottom = 0.166667
-margin_left = 1083.46
-margin_top = -1108.0
-margin_right = 1407.46
-margin_bottom = -886.0
+offset_left = 1083.46
+offset_top = -1108.0
+offset_right = 1407.46
+offset_bottom = -886.0
 room_name = "the inn"
 room_description = "the main area inside the inn. There are a few nondescript villagers drinking at tables around the room, but it isn't busy at the moment. The innkeeper is standing behind the bar, waiting to serve customers. There is a door to the kitchen to the south, and a door back to the village square to the west."
 
 [node name="InnKitchen" parent="RoomManager" instance=ExtResource( 5 )]
-margin_left = 1092.0
-margin_top = -702.0
-margin_right = 1414.0
-margin_bottom = -455.0
+offset_left = 1092.0
+offset_top = -702.0
+offset_right = 1414.0
+offset_bottom = -455.0
 room_name = "the inn's kitchen"
 room_description = "the kitchen of the inn. The cook isn't anywhere to be found - the room is empty, but a stew is cooking over the hearth. There is a door on the south wall that seems to go outside, and a door to the north back to the inn proper."
 
 [node name="Gate" parent="RoomManager" instance=ExtResource( 5 )]
-margin_left = 391.075
-margin_top = -1348.32
-margin_right = 657.075
-margin_bottom = -1145.32
+offset_left = 391.075
+offset_top = -1348.32
+offset_right = 657.075
+offset_bottom = -1145.32
 room_name = "the town gate"
 room_description = "the town gate. It leads out to the forest to the north.. A guard stands nearby watching everyone who comes by. The village is back toward the south."
 
 [node name="Field" parent="RoomManager" instance=ExtResource( 5 )]
-margin_left = 87.5334
-margin_top = -1080.66
-margin_right = 337.533
-margin_bottom = -877.655
+offset_left = 87.5334
+offset_top = -1080.66
+offset_right = 337.533
+offset_bottom = -877.655
 room_name = "a field"
 room_description = "a field of grass and flowers next to the village. The village is back to the east."
 
 [node name="Forest" parent="RoomManager" instance=ExtResource( 5 )]
-margin_left = 403.679
-margin_top = -1592.38
-margin_right = 669.679
-margin_bottom = -1389.38
+offset_left = 403.679
+offset_top = -1592.38
+offset_right = 669.679
+offset_bottom = -1389.38
 room_name = "the forest"
 room_description = "the forest outside of the town. Congratulations! You've made it out of the town."
 
 [node name="Background" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="Background"]
-margin_right = 1024.0
-margin_bottom = 600.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+offset_right = 1024.0
+offset_bottom = 600.0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="Columns" type="HBoxContainer" parent="Background/MarginContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 580.0
-custom_constants/separation = 20
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1004.0
+offset_bottom = 580.0
+theme_override_constants/separation = 20
 
 [node name="Rows" type="VBoxContainer" parent="Background/MarginContainer/Columns"]
-margin_right = 644.0
-margin_bottom = 560.0
+offset_right = 644.0
+offset_bottom = 560.0
 size_flags_horizontal = 3
-custom_constants/separation = 20
+theme_override_constants/separation = 20
 
 [node name="GameInfo" parent="Background/MarginContainer/Columns/Rows" instance=ExtResource( 8 )]
-margin_right = 644.0
+offset_right = 644.0
 
 [node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/Columns/Rows"]
-margin_top = 500.0
-margin_right = 644.0
-margin_bottom = 560.0
-rect_min_size = Vector2( 0, 60 )
-custom_styles/panel = SubResource( 3 )
+offset_top = 500.0
+offset_right = 644.0
+offset_bottom = 560.0
+custom_minimum_size = Vector2( 0, 60 )
+theme_override_styles/panel = SubResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/Columns/Rows/InputArea"]
-margin_right = 644.0
-margin_bottom = 60.0
+offset_right = 644.0
+offset_bottom = 60.0
 
 [node name="Caret" type="Label" parent="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer"]
-margin_top = 11.0
-margin_right = 51.0
-margin_bottom = 48.0
-custom_fonts/font = ExtResource( 2 )
+offset_top = 11.0
+offset_right = 51.0
+offset_bottom = 48.0
+theme_override_fonts/font = ExtResource( 2 )
 text = " > "
 
 [node name="Input" type="LineEdit" parent="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer"]
-margin_left = 55.0
-margin_right = 644.0
-margin_bottom = 60.0
+offset_left = 55.0
+offset_right = 644.0
+offset_bottom = 60.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 2 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_styles/focus = SubResource( 4 )
+theme_override_styles/normal = SubResource( 5 )
 max_length = 48
 script = ExtResource( 1 )
 
 [node name="SidePanel" parent="Background/MarginContainer/Columns" instance=ExtResource( 9 )]
-margin_left = 664.0
+offset_left = 664.0
 
-[connection signal="text_entered" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="." method="_on_Input_text_entered"]
-[connection signal="text_entered" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" method="_on_Input_text_entered"]
+[connection signal="text_submitted" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="." method="_on_Input_text_entered"]
+[connection signal="text_submitted" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" method="_on_Input_text_entered"]

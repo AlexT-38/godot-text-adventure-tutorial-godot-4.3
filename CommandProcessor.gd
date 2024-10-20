@@ -54,7 +54,7 @@ func go(second_word: String) -> String:
 			return "The way " + Types.wrap_location_text(second_word) + " is currently " + Types.wrap_system_text("locked!")
 
 		var change_response = change_room(exit.get_other_room(current_room))
-		return PoolStringArray(["You go " + Types.wrap_location_text(second_word) + ".", change_response]).join("\n")
+		return PackedStringArray(["You go " + Types.wrap_location_text(second_word) + ".", change_response]"\n".join())
 	else:
 		return "This room has no " + Types.wrap_location_text(second_word) + " exit."
 
@@ -153,7 +153,7 @@ func give(second_word: String) -> String:
 
 
 func help() -> String:
-	return PoolStringArray([
+	return PackedStringArray([
 		"You can use these commands: ",
 		" go " + Types.wrap_location_text("[location]"),
 		" take " + Types.wrap_item_text("[item]"),
@@ -163,7 +163,7 @@ func help() -> String:
 		" give " + Types.wrap_item_text("[item]"),
 		" inventory",
 		" help"
-	]).join("\n")
+	]"\n".join())
 
 
 func change_room(new_room: GameRoom) -> String:
