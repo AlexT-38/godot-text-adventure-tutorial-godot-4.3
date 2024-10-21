@@ -24,7 +24,7 @@ func _ready() -> void:
 	command_selector.clear_input.connect(clear_input)
 	command_selector.enter_input.connect(enter_input)
 	command_selector.fetch_list.connect(fetch_list)
-
+	
 
 
 func _on_Input_text_entered(new_text: String) -> void:
@@ -59,6 +59,6 @@ func fetch_list(list_name:String, callback:Callable)->void:
 			list = command_processor.current_room.get_exits_list()
 		"Items":
 			list = command_processor.current_room.get_items_list()
-		"Inventroy":
+		"Inventory":
 			list = player.get_basic_inventory_list()
 	callback.call(list)

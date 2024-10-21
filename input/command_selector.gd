@@ -56,3 +56,7 @@ func reset_selector():
 	list_selector.hide()
 	selector = ""
 	enable_cmd_buttons()
+
+#if text is entered through the Input box, reset the command selector
+func _on_Input_text_entered(new_text: String) -> void:
+	reset_selector()
