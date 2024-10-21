@@ -8,8 +8,8 @@ extends PanelContainer
 @export var room_description = "This is the description of the room.": set = set_room_description
 
 var exits: Dictionary = {}
-var npcs: Array = []
-var items: Array = []
+var npcs: Array[NPC] = []
+var items: Array[Item] = []
 
 
 func set_room_name(new_name: String):
@@ -33,6 +33,30 @@ func add_item(item: Item):
 func remove_item(item: Item):
 	items.erase(item)
 
+func get_item(item_name:String)->Item:
+	item_name = item_name.to_lower()
+	for item in items :
+		if item.item_name.to_lower() == item_name:
+			return item
+	return null
+	
+func get_items_list()->Array[String]:
+	var list :Array[String] = []
+	for item in items:
+		list.append(item.item_name.to_lower())
+	return list
+	
+func get_exits_list()->Array[String]:
+	var list :Array[String] = []
+	for exit in exits.keys():
+		list.append(exit.to_lower())
+	return list
+
+func get_npc_list()->Array[String]:
+	var list :Array[String] = []
+	for npc in npcs:
+		list.append(npc.npc_name.to_lower())
+	return list
 
 func get_full_description() -> String:
 	var full_description = PackedStringArray([get_room_description()])

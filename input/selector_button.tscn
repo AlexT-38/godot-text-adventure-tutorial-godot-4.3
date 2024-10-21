@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgtvyrhgjgovd"]
+
+[ext_resource type="Script" path="res://input/cmd_button.gd" id="1_um0cx"]
+
+[node name="SelectorButton" type="Button"]
+size_flags_horizontal = 3
+text = "Selection"
+script = ExtResource("1_um0cx")

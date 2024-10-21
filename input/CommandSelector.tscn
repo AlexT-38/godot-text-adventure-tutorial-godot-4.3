@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://d6725gpxh1ue"]
+
+[ext_resource type="Script" path="res://input/command_selector.gd" id="1_0fge8"]
+[ext_resource type="Script" path="res://input/cmd_button.gd" id="2_byt60"]
+[ext_resource type="Script" path="res://input/list_selector.gd" id="3_1mbl5"]
+
+[node name="CommandSelector" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_0fge8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+alignment = 2
+
+[node name="ListSelector" type="ScrollContainer" parent="VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+script = ExtResource("3_1mbl5")
+
+[node name="ListRows" type="GridContainer" parent="VBoxContainer/ListSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="CommandButtons" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="GoButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go"
+script = ExtResource("2_byt60")
+next_selector = "Directions"
+
+[node name="TakeButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Take"
+script = ExtResource("2_byt60")
+next_selector = "Items"
+
+[node name="DropButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Drop"
+script = ExtResource("2_byt60")
+next_selector = "Inventory"
+
+[node name="UseButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Use"
+script = ExtResource("2_byt60")
+next_selector = "Inventory"
+
+[node name="GiveButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Give"
+script = ExtResource("2_byt60")
+next_selector = "Inventory"
+
+[node name="TalkButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Talk"
+script = ExtResource("2_byt60")
+next_selector = "NPCs"
+
+[node name="InvButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inventory"
+script = ExtResource("2_byt60")
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"

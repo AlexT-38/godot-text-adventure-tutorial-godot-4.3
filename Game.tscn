@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://blcu3588yqsnd"]
+[gd_scene load_steps=15 format=3 uid="uid://blcu3588yqsnd"]
 
 [ext_resource type="Script" path="res://input/Input.gd" id="1"]
 [ext_resource type="FontFile" path="res://fonts/plex_mono_28.tres" id="2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Player.gd" id="7"]
 [ext_resource type="PackedScene" uid="uid://f45lvihtjdwt" path="res://GameInfo.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://cbyfl5nos105f" path="res://SidePanel.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://d6725gpxh1ue" path="res://input/CommandSelector.tscn" id="10_vyemw"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
@@ -164,7 +165,14 @@ theme_override_styles/normal = SubResource("5")
 max_length = 48
 script = ExtResource("1")
 
-[node name="SidePanel" parent="Background/MarginContainer/Columns" instance=ExtResource("9")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/Columns"]
+layout_mode = 2
+
+[node name="SidePanel" parent="Background/MarginContainer/Columns/VBoxContainer" instance=ExtResource("9")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CommandSelector" parent="Background/MarginContainer/Columns/VBoxContainer" instance=ExtResource("10_vyemw")]
 layout_mode = 2
 
 [connection signal="text_submitted" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="." method="_on_Input_text_entered"]

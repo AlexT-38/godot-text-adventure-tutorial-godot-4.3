@@ -4,8 +4,8 @@ extends Node
 signal room_changed(new_room)
 signal room_updated(current_room)
 
-var current_room = null
-var player = null
+var current_room :GameRoom = null
+var player :Player = null
 
 
 func initialize(starting_room, player) -> String:
@@ -41,9 +41,32 @@ func process_command(input: String) -> String:
 		"help":
 			return help()
 		_:
+			#make life easier by infering commands
+			var response = match_direction(first_word)
+			if response != "":
+				return response
+			response = match_item(first_word)
+			if response != "":
+				return response
 			return Types.wrap_system_text("Unrecognized command - please try again.")
+			
+# use an item in inventory or take an item in the current room
+# without needing to specify the use/take commang
+func match_item(item_name:String)->String:
+	if player.get_item(item_name): return use(item_name)
+	if current_room.get_item(item_name): return take(item_name)
+	return ""
 
-
+# go in the direction given without needing to specify the go command
+# also recognise a single letter matching the direction name's first letter
+func match_direction(direction:String)->String:
+	if current_room.exits.keys().has(direction):
+		return go(direction)
+	for exit in current_room.exits.keys():
+		if exit[0] == direction:
+			return go(exit)
+	return ""
+		
 func go(second_word: String) -> String:
 	if second_word == "":
 		return Types.wrap_system_text("Go where?")
@@ -93,7 +116,7 @@ func inventory() -> String:
 
 func use(second_word: String) -> String:
 	if second_word == "":
-		return Types.wrap_system_text("Drop what?")
+		return Types.wrap_system_text("Use what?")
 
 	for item in player.inventory:
 		if second_word.to_lower() == item.item_name.to_lower():
