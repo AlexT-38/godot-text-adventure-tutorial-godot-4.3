@@ -8,8 +8,11 @@ extends PanelContainer
 @export var room_description = "This is the description of the room.": set = set_room_description
 
 var exits: Dictionary = {}
-var npcs: Array[NPC] = []
-var items: Array[Item] = []
+@export var npcs: Array[NPC] = []
+@export var items: Array[Item] = []
+
+@export var exit_rooms: Dictionary = {} #a dictionary of "direction":$RoomNodePath
+@export var exit_keys: Dictionary = {} #dictionary of key item resources... items and npcs should be nodes, not resources.
 
 
 func set_room_name(new_name: String):
@@ -110,7 +113,14 @@ func connect_exit_unlocked(direction: String, room, room_2_override_name = "null
 func connect_exit_locked(direction: String, room, room_2_override_name = "null"):
 	return _connect_exit(direction, room, true, room_2_override_name)
 
-
+#complementary pairs of directions
+const return_dirs :Dictionary = {"west":"east", "east":"west", "north":"south", "south":"north", "up":"down","down":"up", "inside":"outside"}
+static func get_return_dir(direction:String)->String:
+	var return_dir :String = "null"
+	if direction in return_dirs.keys():
+		return_dir = return_dirs[direction]
+	return return_dir
+	
 func _connect_exit(direction: String, room, is_locked: bool = false, room_2_override_name = "null"):
 	var exit = Exit.new()
 	exit.room_1 = self
@@ -121,22 +131,10 @@ func _connect_exit(direction: String, room, is_locked: bool = false, room_2_over
 	if room_2_override_name != "null":
 		room.exits[room_2_override_name] = exit
 	else:
-		match direction:
-			"west":
-				room.exits["east"] = exit
-			"east":
-				room.exits["west"] = exit
-			"north":
-				room.exits["south"] = exit
-			"south":
-				room.exits["north"] = exit
-			"path":
-				room.exits["path"] = exit
-			"inside":
-				room.exits["outside"] = exit
-			"outside":
-				room.exits["inside"] = exit
-			_:
-				printerr("Tried to connect invalid direction: ", direction)
+		var return_dir = get_return_dir(direction)
+		if return_dir != "null":
+			room.exits[return_dir] = exit
+		else:
+			printerr("Tried to connect invalid direction: ", direction)
 
 	return exit

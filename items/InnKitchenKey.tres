@@ -6,3 +6,4 @@
 script = ExtResource("1")
 item_name = "key"
 item_type = 0
+item_description = "Item Description"
