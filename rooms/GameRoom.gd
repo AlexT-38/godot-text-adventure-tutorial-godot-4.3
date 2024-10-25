@@ -14,7 +14,16 @@ var exits: Dictionary = {}
 @export var exit_rooms: Dictionary = {} #a dictionary of "direction":$RoomNodePath
 @export var exit_keys: Dictionary = {} #dictionary of key item resources... items and npcs should be nodes, not resources.
 
+#func to call on entry into this room
+func on_entry(exit:Exit):
+	#we can get the driection by matching exit in the exits list
+	pass
 
+#func called on leaving this room via direction
+func on_exit(exit:Exit):
+	#we can get the driection by matching exit in the exits list
+	pass
+	
 func set_room_name(new_name: String):
 	$MarginContainer/Rows/RoomName.text = new_name
 	room_name = new_name
@@ -41,6 +50,13 @@ func get_item(item_name:String)->Item:
 	for item in items :
 		if item.item_name.to_lower() == item_name:
 			return item
+	return null
+	
+func get_npc(npc_name:String)->NPC:
+	npc_name = npc_name.to_lower()
+	for npc in npcs :
+		if npc.npc_name.to_lower() == npc_name:
+			return npc
 	return null
 	
 func get_items_list()->Array[String]:

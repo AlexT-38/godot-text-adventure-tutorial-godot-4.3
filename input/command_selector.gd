@@ -9,7 +9,7 @@ signal fetch_list(list_name, callback)
 
 @onready var buttons = $VBoxContainer/CommandButtons
 @onready var list_selector :ListSelector = $VBoxContainer/ListSelector
-var selector
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,15 +28,19 @@ func _process(delta: float) -> void:
 	pass
 
 func process_command(cmd, next_selector):
+	#clear any existing input before writing a command
+	if list_selector.selector == "":
+		clear_input.emit()
+	
 	add_string_to_input.emit(cmd)
 	if next_selector == "":
 		reset_selector()
 		enter_input.emit()
 	else:
-		selector = next_selector
-		fetch_list.emit(selector, list_selector.set_list)
-		list_selector.show()
+		list_selector.selector = next_selector
 		disable_cmd_buttons()
+		list_selector.show()
+		fetch_list.emit(list_selector.selector, list_selector.set_list)
 
 func disable_cmd_buttons():
 	for child in buttons.get_children():
@@ -54,7 +58,7 @@ func clear_command():
 	
 func reset_selector():
 	list_selector.hide()
-	selector = ""
+	list_selector.selector = ""
 	enable_cmd_buttons()
 
 #if text is entered through the Input box, reset the command selector

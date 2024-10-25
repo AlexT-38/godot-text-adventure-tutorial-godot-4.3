@@ -61,4 +61,11 @@ func fetch_list(list_name:String, callback:Callable)->void:
 			list = command_processor.current_room.get_items_list()
 		"Inventory":
 			list = player.get_basic_inventory_list()
+		"AnyItem": #any item in the room or inventory
+			list = player.get_basic_inventory_list()
+			list = list.append(command_processor.current_room.get_items_list())
+		"AnyEntity": #any item in the room or inventory, or any npc
+			list = player.get_basic_inventory_list()
+			list.append_array(command_processor.current_room.get_items_list())
+			list.append_array(command_processor.current_room.get_npc_list())
 	callback.call(list)

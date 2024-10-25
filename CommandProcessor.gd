@@ -6,12 +6,16 @@ signal room_updated(current_room)
 
 var current_room :GameRoom = null
 var player :Player = null
-
+@export var infer_go = false
+@export var infer_take = true
+@export var infer_use = true
+@export var infer_drop = true
+@export var infer_talk = true
+@export var infer_give = true
 
 func initialize(starting_room, player) -> String:
 	self.player = player
 	return change_room(starting_room)
-
 
 func process_command(input: String) -> String:
 	var words = input.split(" ", false)
@@ -38,6 +42,8 @@ func process_command(input: String) -> String:
 			return talk(second_word)
 		"give":
 			return give(second_word)
+		"examine":
+			return examine(second_word)
 		"help":
 			return help()
 		_:
@@ -49,7 +55,25 @@ func process_command(input: String) -> String:
 			if response != "":
 				return response
 			return Types.wrap_system_text("Unrecognized command - please try again.")
-			
+
+func examine(object_name:String)->String:
+	if object_name == "":
+		return current_room.get_full_description()#Types.wrap_system_text("Examine what?")
+	#check inventory, then room items, then npcs
+	var thing_to_examine = player.get_item(object_name)
+	if thing_to_examine:
+		return Types.wrap_item_text(thing_to_examine.item_name)+": "+thing_to_examine.item_description
+		
+	thing_to_examine = current_room.get_item(object_name)
+	if thing_to_examine:
+		return Types.wrap_item_text(thing_to_examine.item_name)+": "+thing_to_examine.item_description
+	
+	thing_to_examine = current_room.get_npc(object_name)
+	if thing_to_examine:
+		return Types.wrap_npc_text(thing_to_examine.npc_name)+": "+thing_to_examine.npc_description
+	
+	return "There is no "+object_name+" to examine."
+	
 # use an item in inventory or take an item in the current room
 # without needing to specify the use/take commang
 func match_item(item_name:String)->String:
@@ -68,14 +92,19 @@ func match_direction(direction:String)->String:
 	return ""
 		
 func go(second_word: String) -> String:
+	# handle infered direction selection
 	if second_word == "":
-		return Types.wrap_system_text("Go where?")
+		if len(current_room.exits) == 0:
+			return Types.wrap_system_text("There is no where to go.")
+		elif len(current_room.exits) == 1 and infer_go:
+			second_word = current_room.exits.keys()[0]
+		else: return Types.wrap_system_text("Go where?")
 
 	if current_room.exits.keys().has(second_word):
 		var exit = current_room.exits[second_word]
 		if exit.is_locked:
 			return "The way " + Types.wrap_location_text(second_word) + " is currently " + Types.wrap_system_text("locked!")
-
+		current_room.on_exit(second_word)
 		var change_response = change_room(exit.get_other_room(current_room))
 		return "\n".join(PackedStringArray(["You go " + Types.wrap_location_text(second_word) + ".", change_response]))
 	else:
@@ -83,30 +112,47 @@ func go(second_word: String) -> String:
 
 
 func take(second_word: String) -> String:
+	var item_to_take :Item = null
+	# handle infered item selection
 	if second_word == "":
-		return Types.wrap_system_text("Take what?")
-
-	for item in current_room.items:
-		if second_word.to_lower() == item.item_name.to_lower():
-			current_room.remove_item(item)
-			player.take_item(item)
-			emit_signal("room_updated", current_room)
-			return "You take the " + Types.wrap_item_text(second_word) + "."
+		if len(current_room.items) == 0:
+			return Types.wrap_system_text("There is nothing to take.")
+		elif len(current_room.items) == 1 and infer_take:
+			item_to_take = current_room.items[0]
+			second_word = item_to_take.item_name
+		else:	return Types.wrap_system_text("Take what?")
+		
+	if item_to_take == null:
+		item_to_take =current_room.get_item(second_word)
+				
+	if item_to_take != null:
+		current_room.remove_item(item_to_take)
+		player.take_item(item_to_take)
+		emit_signal("room_updated", current_room)
+		return "You take the " + Types.wrap_item_text(second_word) + "."
 
 	return "There is no " + Types.wrap_item_text(second_word) + " here."
 
 
 func drop(second_word: String) -> String:
+	var item_to_drop :Item = null
+	#handle infered item selection
 	if second_word == "":
+		if len(player.inventory) == 0:
+			return Types.wrap_system_text("You have nothing to drop.")
+		elif len(player.inventory) == 1 and infer_drop:
+			item_to_drop = player.inventory[0]
 		return Types.wrap_system_text("Drop what?")
 
-	for item in player.inventory:
-		if second_word.to_lower() == item.item_name.to_lower():
-			player.drop_item(item)
-			current_room.add_item(item)
-			emit_signal("room_updated", current_room)
-			return "You drop the " + Types.wrap_item_text(item.item_name) + "."
-
+	if not item_to_drop:
+		item_to_drop = player.get_item(second_word)
+		
+	if item_to_drop: 
+		player.drop_item(item_to_drop)
+		current_room.add_item(item_to_drop)
+		emit_signal("room_updated", current_room)
+		return "You drop the " + Types.wrap_item_text(item_to_drop.item_name) + "."
+	
 	return "You don't have anything called " + Types.wrap_item_text(second_word) + "."
 
 
@@ -115,50 +161,78 @@ func inventory() -> String:
 
 
 func use(second_word: String) -> String:
+	var item_to_use :Item = null
+	#handle infered item selection
 	if second_word == "":
-		return Types.wrap_system_text("Use what?")
+		if len(player.inventory) == 0:
+			return Types.wrap_system_text("You have nothing to use.")
+		if len(player.inventory) == 1 and infer_use:
+			item_to_use = player.inventory[0]
+			second_word = item_to_use.item_name
+		else: return Types.wrap_system_text("Use what?")
 
-	for item in player.inventory:
-		if second_word.to_lower() == item.item_name.to_lower():
-			match item.item_type:
-				Types.ItemTypes.KEY:
-					for exit in current_room.exits.values():
-						if exit == item.use_value:
+	if not item_to_use:
+		item_to_use = player.get_item(second_word)
+		
+	if item_to_use:
+		match item_to_use.item_type:
+			Types.ItemTypes.KEY:
+				for exit in current_room.exits.values():
+					if exit == item_to_use.use_value:
+						
+						if item_to_use.consume_on_use:
 							exit.is_locked = false
-							player.drop_item(item)
-							return "You use a " + Types.wrap_item_text(second_word) + " to unlock the way " + Types.wrap_location_text(exit.get_other_room(current_room).room_name) + "."
-					return "Your " + Types.wrap_item_text(second_word) + " does not unlock anything here."
-				_:
-					return "Error - tried to use an item with an invalid type."
+							player.drop_item(item_to_use)
+						else:
+							exit.is_locked = not exit.is_locked
+							
+						var lock_state = "lock" if exit.is_locked else "unlock"
+							
+						return "You use a " + Types.wrap_item_text(second_word) + " to " + lock_state + " the way to " + Types.wrap_location_text(exit.get_other_room(current_room).room_name) + "."
+				return "Your " + Types.wrap_item_text(second_word) + " does not unlock anything here."
+			_:
+				return "Error - tried to use an item with an invalid type."
 
 	return "You don't have a " + Types.wrap_item_text(second_word) + "."
 
 
 func talk(second_word: String) -> String:
+	var npc_to_talk_to :NPC = null
+	#infer npc to talk to
 	if second_word == "":
-		return Types.wrap_system_text("Talk to who?")
-
-	for npc in current_room.npcs:
-		if npc.npc_name.to_lower() == second_word:
-			var dialog = npc.post_quest_dialog if npc.has_received_quest_item else npc.initial_dialog
-			return Types.wrap_npc_text(npc.npc_name + ": ") + Types.wrap_speech_text("\"" + dialog + "\"")
+		if len(current_room.npcs) == 0:
+			return Types.wrap_system_text("There is no one to talk to.")
+		if len(current_room.npcs) == 1 and infer_talk:
+			npc_to_talk_to = current_room.npcs[0]
+		else:	return Types.wrap_system_text("Talk to who?")
+	#find the npc in the room
+	if not npc_to_talk_to:
+		npc_to_talk_to = current_room.get_npc(second_word)
+	#fetch and print the dialog, if available
+	if npc_to_talk_to:
+		var dialog = npc_to_talk_to.get_dialog()
+		return Types.wrap_npc_text(npc_to_talk_to.npc_name + ": ") + Types.wrap_speech_text("\"" + dialog + "\"")
 
 	return "There is no " + Types.wrap_npc_text(second_word) + " here."
 
 
 func give(second_word: String) -> String:
-	if second_word == "":
-		return Types.wrap_system_text("Give what?")
-
-	var has_item := false
 	var item_to_give :Item
+	#handle infered item selection
+	if second_word == "":
+		if len(player.inventory) == 0:
+			return Types.wrap_system_text("You have nothing to give.")
+		elif len(player.inventory) == 1 and infer_give:
+			item_to_give = player.inventory[0]
+		else:
+			return Types.wrap_system_text("Give what?")
+
 	for item in player.inventory:
 		if second_word.to_lower() == item.item_name.to_lower():
-			has_item = true
 			item_to_give = item
 			break
 
-	if not has_item:
+	if not item_to_give:
 		return "You don't have a " + Types.wrap_item_text(second_word) + "."
 
 	for npc in current_room.npcs:
@@ -187,12 +261,15 @@ func help() -> String:
 		" use " + Types.wrap_item_text("[item]"),
 		" talk " + Types.wrap_npc_text("[npc]"),
 		" give " + Types.wrap_item_text("[item]"),
+		" examine " + Types.wrap_item_text("[item]") + "|" + Types.wrap_npc_text("[npc]") ,
 		" inventory",
 		" help"
 	]  ))
 
 
-func change_room(new_room: GameRoom) -> String:
+func change_room(new_room: GameRoom, exit:Exit) -> String:
+	current_room.on_exit(exit)
 	current_room = new_room
-	emit_signal("room_changed", new_room)
+	new_room.on_entry(exit)
+	room_changed.emit(new_room)
 	return new_room.get_full_description()

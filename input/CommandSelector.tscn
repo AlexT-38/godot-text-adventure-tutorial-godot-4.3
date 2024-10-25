@@ -32,11 +32,11 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 4
+columns = 5
 
 [node name="CommandButtons" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
-columns = 4
+columns = 5
 
 [node name="GoButton" type="Button" parent="VBoxContainer/CommandButtons"]
 layout_mode = 2
@@ -85,6 +85,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Inventory"
 script = ExtResource("2_byt60")
+
+[node name="ExamineButton" type="Button" parent="VBoxContainer/CommandButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Examine"
+script = ExtResource("2_byt60")
+next_selector = "AnyEntity"
 
 [node name="CancelButton" type="Button" parent="VBoxContainer/CommandButtons"]
 layout_mode = 2

@@ -6,4 +6,5 @@
 script = ExtResource("1")
 item_name = "key"
 item_type = 0
-item_description = "Item Description"
+item_description = "A medium sized shiny lever-lock key."
+consume_on_use = false

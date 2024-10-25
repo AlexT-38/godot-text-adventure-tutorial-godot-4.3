@@ -1,11 +1,14 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" script_class="NPC" load_steps=3 format=3 uid="uid://s3scvjgcf3o5"]
 
-[ext_resource path="res://npcs/NPC.gd" type="Script" id=1]
-[ext_resource path="res://items/GuardSword.tres" type="Resource" id=2]
+[ext_resource type="Script" path="res://npcs/NPC.gd" id="1"]
+[ext_resource type="Resource" uid="uid://idg1gyrgwppl" path="res://items/GuardSword.tres" id="2"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 npc_name = "guard"
+npc_description = "A tall young man dressed in leather armor."
 initial_dialog = "Err... you cannot pass! I seem to have lost my sword in the field to the west of the village, and until I recover it, nobody goes through. Don't ask how that makes sense, just go find it!"
+subsequent_dialog = "Have you found my sword yet? It should be in the field to the west of the village. Nobody goes through until I recover it."
 post_quest_dialog = "You found it! I've never been so happy in my entire life. Please go through into the forest. I owe you a great debt!"
-quest_item = ExtResource( 2 )
+subsequent_post_quest_dialog = "Thanks again for returning my sword. I owe you one."
+quest_item = ExtResource("2")

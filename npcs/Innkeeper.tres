@@ -1,9 +1,12 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="NPC" load_steps=2 format=3 uid="uid://bwk1aox0qg185"]
 
-[ext_resource path="res://npcs/NPC.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://npcs/NPC.gd" id="1"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 npc_name = "innkeeper"
+npc_description = "A burly middle aged man with a fine moustache. His ale stained clothes are typical drab cloth items typical for a commoner."
 initial_dialog = "Hi traveler! If you want to win the game, head north to the village gate and talk to the guard!"
+subsequent_dialog = "How's your adventure going? Did you talk to the guard at the gate north of the village?"
 post_quest_dialog = ""
+subsequent_post_quest_dialog = ""
