@@ -58,7 +58,6 @@ room_description = "a storage shed behind a large building that appears to be an
 exit_rooms = {
 "west": NodePath("../BackOfInn")
 }
-exit_keys = {}
 
 [node name="BackOfInn" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 1087.14
@@ -70,7 +69,6 @@ room_description = "the back door of the inn, surrounded by crates and other sto
 exit_rooms = {
 "path": NodePath("../VillageSquare")
 }
-exit_keys = {}
 
 [node name="VillageSquare" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 389.533
@@ -84,7 +82,6 @@ exit_rooms = {
 "north": NodePath("../Gate"),
 "west": NodePath("../Field")
 }
-exit_keys = {}
 
 [node name="InnDoor" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 729.878
@@ -96,7 +93,6 @@ room_description = "the main entrance to the inn. A sign outside says \"The Swoo
 exit_rooms = {
 "inside": NodePath("../InnInside")
 }
-exit_keys = {}
 
 [node name="InnInside" parent="RoomManager" instance=ExtResource("5")]
 anchors_preset = -1
@@ -113,7 +109,6 @@ npcs = Array[ExtResource("6_e0c25")]([ExtResource("7_p7jyj")])
 exit_rooms = {
 "south": NodePath("../InnKitchen")
 }
-exit_keys = {}
 
 [node name="InnKitchen" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 1092.0
@@ -153,8 +148,6 @@ offset_bottom = -877.655
 room_name = "a field"
 room_description = "a field of grass and flowers next to the village. The village is back to the east."
 items = Array[ExtResource("8_g21xq")]([ExtResource("11_jxdqy")])
-exit_rooms = {}
-exit_keys = {}
 
 [node name="Forest" parent="RoomManager" instance=ExtResource("5")]
 offset_left = 403.679
@@ -166,7 +159,6 @@ room_description = "the forest outside of the town. Congratulations! You've made
 exit_rooms = {
 "gate": NodePath("../Gate")
 }
-exit_keys = {}
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 0

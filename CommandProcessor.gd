@@ -104,7 +104,6 @@ func go(second_word: String) -> String:
 		var exit = current_room.exits[second_word]
 		if exit.is_locked:
 			return "The way " + Types.wrap_location_text(second_word) + " is currently " + Types.wrap_system_text("locked!")
-		current_room.on_exit(second_word)
 		var change_response = change_room(exit.get_other_room(current_room))
 		return "\n".join(PackedStringArray(["You go " + Types.wrap_location_text(second_word) + ".", change_response]))
 	else:
@@ -267,8 +266,8 @@ func help() -> String:
 	]  ))
 
 
-func change_room(new_room: GameRoom, exit:Exit) -> String:
-	current_room.on_exit(exit)
+func change_room(new_room: GameRoom, exit:Exit=null) -> String:
+	if current_room: current_room.on_exit(exit)
 	current_room = new_room
 	new_room.on_entry(exit)
 	room_changed.emit(new_room)
