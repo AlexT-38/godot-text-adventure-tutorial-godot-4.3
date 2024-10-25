@@ -46,7 +46,7 @@ func append_input(string:String):
 
 func enter_input():
 	_on_Input_text_entered(input.text)
-	input._on_Input_text_entered("")
+	input._on_Input_text_entered(input.text)
 	input.grab_focus()
 	
 #provide some mechanisms for fetching npcs, items, directions, inventory
